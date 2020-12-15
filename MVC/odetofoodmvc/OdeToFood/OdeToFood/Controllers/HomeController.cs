@@ -3,14 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using OdeToFood.Data.Services;
 
 namespace OdeToFood.Controllers
 {
     public class HomeController : Controller
     {
+        IRestaurantData db;
+
+        public HomeController()
+        {
+            db = new InMemoryRestaurantData(); 
+        }
+
+
         public ActionResult Index()
         {
-            return View();
+            var model = db.GetAll(); 
+            return View(model);
         }
 
         public ActionResult About()
